@@ -1,2 +1,2 @@
-# se_liga_hein
+# Se Liga Hein
 Se liga hein é uma plataforma de procura por vagas de emprego.
