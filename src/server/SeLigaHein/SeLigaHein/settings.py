@@ -33,6 +33,7 @@ AUTH_USER_MODEL = 'vagas.Usuario'
 
 INSTALLED_APPS = [
     'vagas.apps.VagasConfig',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -135,3 +136,8 @@ DATE_INPUT_FORMATS = [
 ]
 
 LANGUAGE_CODE = 'pt-br'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
