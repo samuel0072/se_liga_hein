@@ -78,17 +78,24 @@ class Endereco(TimeStampedModel):
         return "Endereço: {0}, {1} de {2}".format(self.pais.nome, self.cidade.nome, self.estado.nome)
 
 class Tecnologia(TimeStampedModel):
-    nome = models.CharField(max_length=255, default = "")
-    descricao = models.TextField()
+    """
+    Tecnologias/skills. Tecnologias são usadas para adicionar detalhes
+    a cargos e vagas
+    """
+    nome = models.CharField(max_length=255, default = "")#nome da tecnologia
+    descricao = models.TextField()#descrição da tecnologia
 
     def __str__(self):
         return "Tecnologia: {0}".format(self.nome)
 
 
 class Cargo(TimeStampedModel):
-    nome = models.CharField(max_length=255, default = "")
-    descricao = models.TextField()
-    tecnologias = models.ManyToManyField(Tecnologia)
+    """
+    Cargo/profissão. Cargos são usados para adicionar mais detalhes à vagas
+    """
+    nome = models.CharField(max_length=255, default = "")#nome do cargo
+    descricao = models.TextField()#descrição do cargo
+    tecnologias = models.ManyToManyField(Tecnologia)#tecnologias usadas nesse cargo
 
     def __str__(self):
         return "Cargo: {0}".format(self.nome)
@@ -107,7 +114,7 @@ class Vaga(TimeStampedModel):
     endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT, null=True, blank=True)#endereço que a vaga se refere
     cargo = models.ForeignKey(Cargo, on_delete=models.PROTECT, null=True, blank=True)#cargo que a vaga se refere
     
-    tecnologias = models.ManyToManyField(Tecnologia,)#tecnologias associadas a vaga
+    tecnologias = models.ManyToManyField(Tecnologia)#tecnologias associadas a vaga
 
     empresa = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True, blank=True)#empres que criou a vaga
 
