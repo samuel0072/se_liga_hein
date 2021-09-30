@@ -77,12 +77,39 @@ class Endereco(TimeStampedModel):
     def __str__(self):
         return "Endereço: {0}, {1} de {2}".format(self.pais.nome, self.cidade.nome, self.estado.nome)
 
+class Tecnologia(TimeStampedModel):
+    nome = models.CharField(max_length=255, default = "")
+    descricao = models.TextField()
+
+    def __str__(self):
+        return "Tecnologia: {0}".format(self.nome)
+
+
+class Cargo(TimeStampedModel):
+    nome = models.CharField(max_length=255, default = "")
+    descricao = models.TextField()
+    tecnologias = models.ManyToManyField(Tecnologia)
+
+    def __str__(self):
+        return "Cargo: {0}".format(self.nome)
+
 class Vaga(TimeStampedModel):
     """
     Model de vagas. Todas as vagas do sistema são instância desse model
 
     """
+    titulo = models.CharField(max_length=255, default="")#titulo para a vaga
     descricao = models.TextField()#campo de descrição da vaga
-    data_inicio = models.DateTimeField(auto_now_add=True)
-    data_fim = models.DateTimeField()
-    endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT, null=True, blank=True)
+    data_inicio = models.DateTimeField(auto_now_add=True)#data de inicio da vaga no sistema
+    data_fim = models.DateTimeField()#data de fim da vaga no sistema
+    remuneracao = models.FloatField(default=0)#remuneracao oferecida pela vaga
+    
+    endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT, null=True, blank=True)#endereço que a vaga se refere
+    cargo = models.ForeignKey(Cargo, on_delete=models.PROTECT, null=True, blank=True)#cargo que a vaga se refere
+    
+    tecnologias = models.ManyToManyField(Tecnologia,)#tecnologias associadas a vaga
+
+    empresa = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True, blank=True)#empres que criou a vaga
+
+    def __str__(self):
+        return "Vaga: {0}. Empresa associada: {1}".format(self.titulo, self.empresa.first_name)
