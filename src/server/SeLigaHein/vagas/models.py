@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
-
-
 class Usuario(AbstractUser):
     """
     Modelo do usuário padrão do sistema
@@ -43,7 +41,6 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
-
 
 class EntidadeEndereco(TimeStampedModel):
     """
@@ -87,7 +84,6 @@ class Tecnologia(TimeStampedModel):
 
     def __str__(self):
         return "Tecnologia: {0}".format(self.nome)
-
 
 class Cargo(TimeStampedModel):
     """

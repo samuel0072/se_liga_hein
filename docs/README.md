@@ -28,6 +28,8 @@
 
 `vagas/bucar/{empresa_nome}/empresa`: busca todas as vagas com o nome da empresa parecido ao informado
 
+`vagas/{id}/usuarios`: Lista todos os usuários que se candidataram à  vaga
+
 > Todas as rotas acima só aceitam requisições GET
 
 `vagas/criar`: 
@@ -63,7 +65,31 @@ PUT: muda a data de inicio da vaga
 `vagas/{id}/data_fim/{data_fim}` :
 PUT: muda a data de inicio da vaga
 
+`vagas/{id}/candidatar`:
+POST: O usuário logado se candidata à vaga
 
+## Usuários :busts_in_silhouette:
+
+`vagas/usuario/{id}`:
+GET: Retorna as informações públicas do usuário informado
+
+`vagas/usuario/criar`:
+POST: Cria um usuário e o retorna
+
+`vagas/usuario/login`:
+POST: loga um usuário no sistema
+
+`vagas/usuario/logout`:
+POST: desloga o usuário do sistema
+
+`vagas/usuario/editar`:
+PUT: Atualiza as informações públicas do usuário logado
+
+`vagas/usuario/senha/editar`:
+POST: Altera a senha do usuário logado
+
+`vagas/usuario/senha/esquecer`:
+POST: Envia um email para o usuário com a nova senha gerada pela sistema
 
 # Organização do banco de dados
 ![Imagem do banco de dados. O banco foi modelagem usando uma abordagem relacional](modelagem_db.png)
