@@ -88,8 +88,71 @@ PUT: Atualiza as informações públicas do usuário logado
 `vagas/usuario/senha/editar`:
 POST: Altera a senha do usuário logado
 
-`vagas/usuario/senha/esquecer`:
-POST: Envia um email para o usuário com a nova senha gerada pela sistema
+`vagas/usuario/senha/esquecer/{username}`:
+POST: Envia um email para o usuário informado em username com a nova senha gerada pela sistema
+
+## Cargos
+
+
+`vagas/cargo/{id}`:
+GET: Retorna o cargo especificado
+DELETE: Excluí o cargo, somente para administrador do sistema
+
+`vagas/cargo/{tec_id}/tecnologia`:
+GET: Retorna cargos que possuem a tecnologia informada pelo id
+
+`vagas/cargo/{nome}/nome`:
+GET: Retorna cargos que possuem nomes semelhantes ao informado
+
+> Rotas abaixo disponíveis somente para o adiministrador do sistema
+
+`vagas/cargo/criar`:
+POST: Cria um cargo e o retorna
+
+`vagas/cargo/{id}/editar`:
+PUT: Atualiza as informações do cargo logado
+
+
+## Tecnologia
+
+`vagas/tec/{id}`:
+GET: Retorna a tecnologia especificada
+DELETE: Excluí a tecnologia, somente para administrador do sistema
+
+`vagas/tec/{nome}/nome`:
+GET: Retorna tecnologias que possuem nomes semelhantes ao informado
+
+> Rotas abaixo disponíveis somente para o adiministrador do sistema
+
+`vagas/tec/criar`:
+POST: Cria uma tecnologia e a retorna
+
+`vagas/tec/{id}/editar`:
+PUT: Atualiza as informações da tecnologia logado
+
+## Endereço
+
+`vagas/endereco/{id}`:
+GET: Retorna o endereço especificada
+DELETE: Excluí o endereço, somente para administrador do sistema
+
+`vagas/endereco/entidade/{id}`:
+GET: Retorna a entidade de endereço especificada
+DELETE: Excluí a entidade de endereço especificada, , somente para administrador do sistema
+
+`vagas/endereco/entidade/{nome}/nome`:
+GET: Retorna as entidades de endereço com nomes semelhantes ao informado
+
+`vagas/endereco/entidade/{sigla}/sigla`:
+GET: Retorna as entidades de endereço com sigla igual a informada
+
+> Rotas abaixo disponíveis somente para o adiministrador do sistema
+
+`vagas/endereco/criar`:
+POST: Cria um endereço e o retorna
+
+`vagas/endereco/criar/entidade`:
+POST: Cria uma entidade de endereço e a retorna
 
 # Organização do banco de dados
 ![Imagem do banco de dados. O banco foi modelagem usando uma abordagem relacional](modelagem_db.png)
