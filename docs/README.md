@@ -21,7 +21,7 @@ GET - Paramêtros da requisição:
 
 > Todas as rotas acima só aceitam requisições GET
 
-`vagas/{id}`: 
+`vagas/`: 
 
 GET - Paramêtros da requisição:
 
