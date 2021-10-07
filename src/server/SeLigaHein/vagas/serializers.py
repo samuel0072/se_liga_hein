@@ -6,31 +6,31 @@ class VagaSerializer(serializers.ModelSerializer):
         model = Vaga
         fields = ['titulo', 'descricao', 'data_inicio',
         'data_fim', 'remuneracao', 'endereco',
-        'cargo', 'tecnologias', 'empresa', '_id']
+        'cargo', 'tecnologias', 'empresa', 'id']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['email', 'email_2', 'telefone_1', 'telefone_2',
-        'descricao', 'cnpj', '_id']
+        'descricao', 'cnpj', 'id']
 
 class CargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cargo
-        fields = ['nome', 'descricao', 'tecnologias', '_id']
+        fields = ['nome', 'descricao', 'tecnologias', 'id']
 
 class TecnologiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tecnologia
-        fields = ['_id', 'nome', 'descricao']
+        fields = ['id', 'nome', 'descricao']
 
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endereco
-        fields = ['_id', 'pais', 'cidade', 'estado']
+        fields = ['id', 'pais', 'cidade', 'estado']
 
 class EntidadeEnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = EntidadeEndereco
-        fields = ['_id', 'nome', 'sigla', 'tipo']
+        fields = ['id', 'nome', 'sigla', 'tipo']
 
