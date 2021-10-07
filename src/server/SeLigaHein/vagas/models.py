@@ -107,6 +107,8 @@ class Vaga(TimeStampedModel):
     data_fim = models.DateTimeField()#data de fim da vaga no sistema
     remuneracao = models.FloatField(default=0)#remuneracao oferecida pela vaga
     
+    disponivel = models.BooleanField(default = True)#vaga ainda stá disponível no sistema
+
     endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT, null=True, blank=True)#endereço que a vaga se refere
     cargo = models.ForeignKey(Cargo, on_delete=models.PROTECT, null=True, blank=True)#cargo que a vaga se refere
     

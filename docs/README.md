@@ -144,4 +144,4 @@
         - entidade: Cria uma entidade de endereço e a retorna
 
 # Organização do banco de dados
-![Imagem do banco de dados. O banco foi modelagem usando uma abordagem relacional](modelagem_db.png)
+![Imagem do banco de dados. O banco foi modelado usando uma abordagem relacional](modelagem_db.png)
