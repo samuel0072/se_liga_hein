@@ -60,9 +60,14 @@
 
     POST: Cria um usuário e o retorna
 
-`vagas/usuario/login`:
+`vagas/api-token`:
 
-    POST: loga um usuário no sistema
+    POST loga um usuário no sistema - Corpo da requisição:
+
+        - username: o username do usuário
+        - password: a senha do usuário
+
+        retorna um token de autenticação
 
 `vagas/usuario/logout`:
 
