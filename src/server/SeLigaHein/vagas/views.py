@@ -4,9 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.parsers import JSONParser
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
-
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from .models import *
 
@@ -14,6 +15,8 @@ from .models import *
 content_type = "aplication/json"
 
 @api_view(['GET'])
+#@permission_classes([IsAuthenticated])
+#@authentication_classes([TokenAuthentication])
 def listar(request):
     #TODO: Adicionar filtros listado em docs/README.md
     vagas = Vaga.objects.all()
