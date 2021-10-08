@@ -78,14 +78,15 @@
         - username: Envia um email para o usuário informado em username com a nova senha gerada pela sistema
 
 ## Cargos
+`vagas/cargo/buscar`:
 
-`vagas/cargo`:
-
-    GET - Paramêtros da requisição:
+GET - Paramêtros da requisição:
 
         - cargo_id : Retorna o cargo especificado
         - tec_id: Retorna cargos que possuem a tecnologia informada pelo id
         - nome: Retorna cargos que possuem nomes semelhantes ao informado
+
+`vagas/cargo`:
 
 > Metodos abaixo disponíveis somente para o adiministrador do sistema
 

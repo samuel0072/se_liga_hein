@@ -50,39 +50,44 @@ def vaga(request):
     if request.method == 'DELETE':
         pass
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
-@authentication_classes([TokenAuthentication])
-def cargo(request):
-    if request.method == 'GET':
-        if "cargo_id" in request.query_params:
-            cargo_id = int(request.query_params["cargo_id"])
-            cargo = get_object_or_404(Cargo, pk = cargo_id)
-            serializer = CargoSerializer(cargo)
-        
-        elif "tec_id" in request.query_params:
+@api_view(['GET'])
+def cargo_buscar(request):
+
+    if "cargo_id" in request.query_params:#se já for informado o id do cargo, a busca por tec_id e nome é dispensada
+        cargo_id = int(request.query_params["cargo_id"])
+        cargo = get_object_or_404(Cargo, pk = cargo_id)
+        serializer = CargoSerializer(cargo)
+    
+    else:
+        cargos = Cargo.objects.all()#por padrão retorna todos os cargos, com paginação
+
+        if "tec_id" in request.query_params:
             tec_id = int(request.query_params["tec_id"])
             tec = get_object_or_404(Tecnologia, pk = tec_id)
-            cargos = Cargo.objects.filter(tecnologias = tec)
-            serializer = CargoSerializer(cargos, many = True)
+            cargos = cargos.filter(tecnologias = tec)
         
-        elif "nome" in request.query_params:
+        if "nome" in request.query_params:
             nome = str(request.query_params["nome"])
-            
+
             nome = nome.split()#separa cada palavra informada por espaço, tabulações, quebras de linha...
 
             regex = r"(" + "|".join(nome) + ")+"#cria um regex do tipo: (palavra1|palavra2|palavra3|...)
 
-            cargos = Cargo.objects.filter(nome__iregex=regex)
-            serializer = CargoSerializer(cargos, many = True)
+            cargos = cargos.filter(nome__iregex=regex)
         
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        return Response(serializer.data, status = status.HTTP_200_OK, content_type=content_type)
+        serializer = CargoSerializer(cargos, many = True)
 
+    return Response(serializer.data, status = status.HTTP_200_OK, content_type=content_type)
+
+
+@api_view(['POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def cargo(request):
+    
     if request.method == 'POST':
         pass
-    if request.method == 'PUT':
+    elif request.method == 'PUT':
         pass
-    if request.method == 'DELETE':
+    elif request.method == 'DELETE':
         pass

@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.vaga, name = 'index'),
     path('listar', views.listar, name = 'listar'),
     path('cargo', views.cargo, name = 'cargo'),
+    path('cargo/buscar', views.cargo_buscar, name = 'cargo_buscar'),
     path('api-token', rest_auth_views.obtain_auth_token),#rota pra obter um token de autenticação
 ]
