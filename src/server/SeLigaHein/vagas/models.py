@@ -102,7 +102,7 @@ class Cargo(TimeStampedModel):
     """
     nome = models.CharField(max_length=255, default = "")#nome do cargo
     descricao = models.TextField()#descrição do cargo
-    tecnologias = models.ManyToManyField(Tecnologia)#tecnologias usadas nesse cargo
+    tecnologias = models.ManyToManyField(Tecnologia,  blank = True)#tecnologias usadas nesse cargo
 
     def __str__(self):
         return "Cargo: {0}".format(self.nome)
@@ -123,7 +123,7 @@ class Vaga(TimeStampedModel):
     endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT, null=True, blank=True)#endereço que a vaga se refere
     cargo = models.ForeignKey(Cargo, on_delete=models.PROTECT, null=True, blank=True)#cargo que a vaga se refere
     
-    tecnologias = models.ManyToManyField(Tecnologia)#tecnologias associadas a vaga
+    tecnologias = models.ManyToManyField(Tecnologia, blank = True)#tecnologias associadas a vaga
 
     empresa = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True, blank=True)#empres que criou a vaga
 

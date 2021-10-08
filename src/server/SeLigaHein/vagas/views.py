@@ -41,7 +41,7 @@ def vaga(request):
     if request.method == 'POST':
         serializer = VagaSerializer(data = request.data)
 
-        if serializer.is_valid():
+        if serializer.is_valid() and request.user.tipo == Usuario.EMPRESA:
             serializer.save()
             return Response(serializer.data, content_type=content_type, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -84,10 +84,28 @@ def cargo_buscar(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([TokenAuthentication])
 def cargo(request):
-    
+
+    if not request.user.is_superuser:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
     if request.method == 'POST':
-        pass
+        serializer = CargoSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, content_type=content_type, status = status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'PUT':
-        pass
+        id = int(request.data["id"])
+        cargo = get_object_or_404(Cargo, pk = id)
+        serializer = CargoSerializer(cargo, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     elif request.method == 'DELETE':
-        pass
+        id = int(request.data["id"])
+        cargo = get_object_or_404(Cargo, pk = id)
+        cargo.delete(keep_parents=True)
+        return Response(status=status.HTTP_200_OK)

@@ -2,6 +2,8 @@ from django.urls import path, include
 from rest_framework.authtoken import views as rest_auth_views
 from vagas import views
 
+app_name = 'vagas'
+
 urlpatterns = [
     path('', views.vaga, name = 'index'),
     path('listar', views.listar, name = 'listar'),
