@@ -1,15 +1,12 @@
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, JsonResponse
-from django.db.models import Q
-from rest_framework import response
 
-from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.authentication import  TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.serializers import Serializer
+
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .serializers import *
 from .models import *
@@ -82,7 +79,7 @@ def cargo_buscar(request):
 
 @api_view(['POST', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([TokenAuthentication, JWTAuthentication])
 def cargo(request):
 
     if not request.user.is_superuser:
