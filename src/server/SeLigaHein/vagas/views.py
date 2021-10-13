@@ -10,6 +10,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .serializers import *
 from .models import *
+from vagas.utils import buscar_vaga
 
 # Create your views here.
 content_type = "aplication/json"
@@ -17,7 +18,7 @@ content_type = "aplication/json"
 @api_view(['GET'])
 def listar(request):
     #TODO: Adicionar filtros listado em docs/README.md
-    vagas = Vaga.objects.all()
+    vagas = buscar_vaga(request.query_params)
     serializer = VagaSerializer(vagas, many = True)
     return Response(serializer.data, content_type=content_type)
 

@@ -6,18 +6,19 @@
 
     GET - Paramêtros da requisição:
 
-        - empresa: lista todas as vagas de uma empresa especificada por empresa_id
-        - cargo: lista todas as vagas associadas a um determinado cargo
-        - tecnologia: lista todas as vagas associadas a uma determinada tecnologia
+        - id: Retorna  vaga especificada pelo id
+        - usuario_id: lista todas as vagas de um usuario
+        - cargo_id: lista todas as vagas associadas a um determinado cargo
+        - tecnologia_id: lista todas as vagas associadas a uma determinada tecnologia
         - data_inicio: lista todas as vagas a partir de uma determinada data de inicio
         - data_fim: lista todas as vagas até uma determinada data de fim
-        - endereco: Lista todas as vagas com endereço igual ao informado
+        - endereco: Lista todas as vagas com endereço parecido ao informado
         - remuneracao: lista todas as vagas com uma remuneração maior igual que a informada
         - sem paramêtros: lista todas as vagas do sistema
         - titulo: busca todas as vagas com o titulo parecido ao informado
         - cargo_nome: busca todas as vagas com o nome do cargo parecido ao informado
         - tecnologia_nome: busca todas as vagas com nome das tecnologias parecidas à informada
-        - empresa_nome: busca todas as vagas com o nome da empresa parecido ao informado
+        - usuario_nome: busca todas as vagas com o nome da empresa parecido ao informado
 
 `vagas/`: 
 
