@@ -1,0 +1,5 @@
+ERRO_SENHA_CONFIRMAR_SENHA = "O campo senha e confirmação de senha precisam ser iguais."
+ERRO_USERNAME_EXISTE = "Este nome de usuário já existe."
+ERRO_CAMPOS_VAZIOS = "O campos não podem estar vazios."
+ERRO_CRIAR_USUARIO_DATABASE = "Ocorreu um erro no banco de dados.Não foi possível criar o usuário. Tente novamente."
+ERRO_INESPERADO = "Ocorreu um erro."

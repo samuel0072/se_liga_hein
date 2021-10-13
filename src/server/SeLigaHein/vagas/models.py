@@ -13,7 +13,7 @@ class Usuario(AbstractUser):
     Modelo do usuário padrão do sistema
     """
     email_2 = models.CharField(max_length=255, null=True, blank=True)#o django já possui um campo de email
-    telefone_1 = models.CharField(max_length=255)
+    telefone_1 = models.CharField(max_length=255, null=True, blank=True)
     telefone_2 = models.CharField(max_length=255, null=True, blank=True)
     descricao = models.TextField(null=True, blank=True)#campo de bio ou descrição de uma empresa
 

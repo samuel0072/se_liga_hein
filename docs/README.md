@@ -54,6 +54,10 @@
 
     PUT: Atualiza as informações do usuário logado
 
+    
+
+`vagas/usuario/cadastrar`:
+
     POST: Cria um usuário e o retorna
 
 `vagas/api-token`:

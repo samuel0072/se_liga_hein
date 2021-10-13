@@ -17,6 +17,7 @@ urlpatterns = [
     path('cargo', views.cargo, name = 'cargo'),
     path('cargo/buscar', views.cargo_buscar, name = 'cargo_buscar'),
     path('usuario', views.usuario, name = 'usuario'),
+    path('usuario/registrar', views.registrar, name = 'registrar'),
 
     path('api/auth_token', rest_auth_views.obtain_auth_token, name="auth_token"),#rota pra obter um token de autenticação
     path('api/jwt_token', TokenObtainPairView.as_view(), name='jwt_token_obtain_pair'),#rota para obter um jwt para autenticação
