@@ -32,21 +32,16 @@
 
         - tec_id: adiciona uma tecnologia a uma vaga
         - cargo_id: muda a vaga com o cargo especificado
-        - cidade_id: muda a cidade do endereço da vaga
-        - estado_id: muda o estado do endereço da vaga
-        - pais_id: muda o país do endereço da vaga
+        - cidade: muda a cidade do endereço da vaga
+        - estado: muda o estado do endereço da vaga
+        - pais: muda o país do endereço da vaga
         - remuneracao: muda a remuneracao da vaga 
         - data_inicio: muda a data de inicio da vaga
-        - data_fimmuda a data de fim da vaga
+        - data_fim:muda a data de fim da vaga
 
     DELETE - Corpo da requisição:
 
         - vaga_id: Excluí a vaga especificada
-        - tec_id: remove a tecnologia da vaga
-
-`vagas/{id}/candidatar`:
-    
-    POST: O usuário logado se candidata à vaga
 
 ## Usuários :busts_in_silhouette:
 

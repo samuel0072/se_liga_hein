@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.response import Response
 from rest_framework.authentication import  TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.serializers import Serializer
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -122,3 +123,29 @@ def cargo(request):
         cargo = get_object_or_404(Cargo, pk = id)
         cargo.delete(keep_parents=True)
         return Response(status=status.HTTP_200_OK)
+
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication, JWTAuthentication])
+def usuario(request):
+    if request.method == "GET":
+        serializer = None
+        if 'id' in request.query_params:
+            id = int(request.query_params['id'])
+            usuario = get_object_or_404(Usuario, pk = id)
+            serializer = UsuarioSerializer(usuario)
+        else:
+            serializer = UsuarioSerializer(request.user)
+
+        return Response(serializer.data, status = status.HTTP_200_OK, content_type=content_type)
+    
+    elif request.method == 'PUT':
+        serializer = UsuarioSerializer(request.user, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def registrar(request):
+    pass
