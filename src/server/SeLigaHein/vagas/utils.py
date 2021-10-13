@@ -70,7 +70,7 @@ def buscar_vaga(campos):
                 nome = campos['tecnologia_nome']
                 nome = nome.split()#separa cada palavra informada por espaço, tabulações, quebras de linha...
                 regex = r"(" + "|".join(nome) + ")+"
-                filtros['tecnologia__nome__iregex'] = regex
+                filtros['tecnologias__nome__iregex'] = regex
             except:
                 pass
         if 'usuario_nome' in campos:

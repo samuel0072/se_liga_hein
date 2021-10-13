@@ -24,7 +24,7 @@ class Usuario(AbstractUser):
         return "{0} {1}".format(self.first_name, self.last_name)
 
     def __str__(self):
-        return "Usuário {0}: {1}".format(self.nome_completo(), self.get_tipo_display())
+        return "Usuário {0}".format(self.nome_completo())
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
