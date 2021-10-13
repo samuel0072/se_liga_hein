@@ -15,37 +15,52 @@ from .models import *
 content_type = "aplication/json"
 
 @api_view(['GET'])
-#@permission_classes([IsAuthenticated])
-#@authentication_classes([TokenAuthentication])
 def listar(request):
     #TODO: Adicionar filtros listado em docs/README.md
     vagas = Vaga.objects.all()
     serializer = VagaSerializer(vagas, many = True)
     return Response(serializer.data, content_type=content_type)
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication, JWTAuthentication])
 def vaga(request):
     
-    if request.method == 'GET':
-        
-        id = request.query_params["id"]
-        vaga = get_object_or_404(Vaga, pk=id)#TODO: está retornando text/html quando não encontra, mudar para aplication/json
-       
+    serializer = VagaSerializer(data = request.data)
+    if serializer.is_valid():
+        vaga = serializer.save()
+        #adiciona o usuario a vaga que está sendo criada
+        vaga.usuario = request.user
+        vaga.save()
         serializer = VagaSerializer(vaga)
-        return Response(serializer.data, content_type=content_type)
-        
-            
-    if request.method == 'POST':
-        serializer = VagaSerializer(data = request.data)
+        return Response(serializer.data, content_type=content_type, status = status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        if serializer.is_valid() and request.user.tipo == Usuario.EMPRESA:
-            serializer.save()
-            return Response(serializer.data, content_type=content_type, status = status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication, JWTAuthentication])
+def mudar_vaga(request):
+    
     if request.method == 'PUT':
-        pass
-    if request.method == 'DELETE':
-        pass
+        id = int(request.data["id"])
+        vaga = get_object_or_404(Vaga, pk = id)
+        serializer = VagaSerializer(vaga, data = request.data)
+        if serializer.is_valid():
+            if (vaga.usuario != None) and ((vaga.usuario == request.user) or (request.user.is_superuser)):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        id = int(request.data["id"])
+        vaga = get_object_or_404(Vaga, pk = id)
+
+        if (vaga.usuario != None) and ((vaga.usuario == request.user) or (request.user.is_superuser)):
+            vaga.delete(keep_parents=True)
+            return Response(status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
+
 
 @api_view(['GET'])
 def cargo_buscar(request):

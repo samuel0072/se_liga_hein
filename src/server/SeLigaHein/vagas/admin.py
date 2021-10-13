@@ -5,6 +5,5 @@ from .models import *
 admin.site.register(Usuario)
 admin.site.register(Vaga)
 admin.site.register(Endereco)
-admin.site.register(EntidadeEndereco)
 admin.site.register(Cargo)
 admin.site.register(Tecnologia)

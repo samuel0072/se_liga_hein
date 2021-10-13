@@ -6,17 +6,18 @@ class VagaSerializer(serializers.ModelSerializer):
         model = Vaga
         fields = ['titulo', 'descricao', 'data_inicio',
         'data_fim', 'remuneracao', 'endereco',
-        'cargo', 'tecnologias', 'empresa', 'id']
+        'cargo', 'tecnologias', 'usuario', 'link', 'id']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['email', 'email_2', 'telefone_1', 'telefone_2',
-        'descricao', 'cnpj', 'id']
+        'descricao', 'id', 'first_name', 'last_name']#first_name e last_name já são campos do model AbstractUser do django
 
 class CargoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cargo
+        #depth = 2
         fields = ['nome', 'descricao', 'tecnologias', 'id']
 
 class TecnologiaSerializer(serializers.ModelSerializer):
@@ -27,10 +28,6 @@ class TecnologiaSerializer(serializers.ModelSerializer):
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endereco
-        fields = ['id', 'pais', 'cidade', 'estado']
+        fields = ['id', 'pais', 'cidade', 'estado', 'pais_sigla', 'cidade_sigla', 'estado_sigla']
 
-class EntidadeEnderecoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EntidadeEndereco
-        fields = ['id', 'nome', 'sigla', 'tipo']
 
