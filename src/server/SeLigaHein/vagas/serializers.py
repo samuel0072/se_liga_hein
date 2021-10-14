@@ -6,7 +6,7 @@ class VagaSerializer(serializers.ModelSerializer):
         model = Vaga
         fields = ['titulo', 'descricao', 'data_inicio',
         'data_fim', 'remuneracao', 'endereco',
-        'cargo', 'tecnologias', 'usuario', 'link', 'id']
+        'cargo', 'tecnologias',  'link', 'id', 'disponivel']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
