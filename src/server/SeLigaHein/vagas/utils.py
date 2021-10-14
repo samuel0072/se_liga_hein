@@ -93,7 +93,9 @@ def buscar_vaga(campos):
             except:
                 pass
         
+        filtros['disponivel'] = True
+        
         q = Q(**filtros)
         q.connector = Q.AND
-        vagas = Vaga.objects.filter(q)
+        vagas = Vaga.objects.filter(q).order_by('-updated_at')
     return vagas
