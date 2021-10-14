@@ -16,6 +16,7 @@ urlpatterns = [
     path('mudar_vaga', views.mudar_vaga, name='mudar_vaga'),
     path('cargo', views.cargo, name = 'cargo'),
     path('cargo/buscar', views.cargo_buscar, name = 'cargo_buscar'),
+    path('cargo/criar', views.criar_cargo, name = 'cargo_criar'),
     path('usuario', views.usuario, name = 'usuario'),
     path('usuario/registrar', views.registrar, name = 'registrar'),
 

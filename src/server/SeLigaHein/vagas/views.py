@@ -9,21 +9,22 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from rest_framework.authentication import  TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.serializers import Serializer
 
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .serializers import *
 from .models import *
 from vagas.utils import buscar_vaga
-from vagas.translations import pt_br
+from vagas.translations import pt_br#TODO:mudar pra carregar as traduções com a inicialização do sistema e que seja possível o 'usuário' escolher
+
 
 # Create your views here.
 content_type = "aplication/json"
 
 @api_view(['GET'])
 def listar(request):
-    #TODO: Adicionar filtros listado em docs/README.md
     vagas = buscar_vaga(request.query_params)
     serializer = VagaSerializer(vagas, many = True)
     return Response(serializer.data, content_type=content_type)
@@ -48,30 +49,28 @@ def vaga(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([TokenAuthentication, JWTAuthentication])
 def mudar_vaga(request):
+    id = int(request.data["id"])
+    vaga = get_object_or_404(Vaga, pk = id)
     
-    if request.method == 'PUT':
-        id = int(request.data["id"])
-        vaga = get_object_or_404(Vaga, pk = id)
-        serializer = VagaSerializer(vaga, data = request.data)
-        if serializer.is_valid():
-            if (vaga.usuario != None) and ((vaga.usuario == request.user) or (request.user.is_superuser)):
+    if (vaga.usuario != None) and ((vaga.usuario == request.user) or (request.user.is_superuser)):
+        if request.method == 'PUT':
+            serializer = VagaSerializer(vaga, data = request.data)
+            if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        id = int(request.data["id"])
-        vaga = get_object_or_404(Vaga, pk = id)
-
-        if (vaga.usuario != None) and ((vaga.usuario == request.user) or (request.user.is_superuser)):
+        elif request.method == 'DELETE':
             vaga.delete(keep_parents=True)
             return Response(status=status.HTTP_200_OK)
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['GET'])
 def cargo_buscar(request):
-
+    serializer = None
     if "cargo_id" in request.query_params:#se já for informado o id do cargo, a busca por tec_id e nome é dispensada
         cargo_id = int(request.query_params["cargo_id"])
         cargo = get_object_or_404(Cargo, pk = cargo_id)
@@ -99,22 +98,12 @@ def cargo_buscar(request):
     return Response(serializer.data, status = status.HTTP_200_OK, content_type=content_type)
 
 
-@api_view(['POST', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated, IsAdminUser])
 @authentication_classes([TokenAuthentication, JWTAuthentication])
 def cargo(request):
 
-    if not request.user.is_superuser:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-    if request.method == 'POST':
-        serializer = CargoSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, content_type=content_type, status = status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         id = int(request.data["id"])
         cargo = get_object_or_404(Cargo, pk = id)
         serializer = CargoSerializer(cargo, data = request.data)
@@ -129,19 +118,24 @@ def cargo(request):
         cargo.delete(keep_parents=True)
         return Response(status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication, JWTAuthentication])
+def criar_cargo(request):
+    if request.method == 'POST':
+        serializer = CargoSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, content_type=content_type, status = status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['GET', 'PUT'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([TokenAuthentication, JWTAuthentication])
 def usuario(request):
     if request.method == "GET":
-        serializer = None
-        if 'id' in request.query_params:
-            id = int(request.query_params['id'])
-            usuario = get_object_or_404(Usuario, pk = id)
-            serializer = UsuarioSerializer(usuario)
-        else:
-            serializer = UsuarioSerializer(request.user)
-
+        serializer = UsuarioSerializer(request.user)
         return Response(serializer.data, status = status.HTTP_200_OK, content_type=content_type)
     
     elif request.method == 'PUT':
