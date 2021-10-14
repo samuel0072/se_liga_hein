@@ -48,16 +48,17 @@ class TimeStampedModel(models.Model):
 class Endereco(TimeStampedModel):
     """
     Model de endereço que contém um país, um estado e uma cidade.
+    A principio esse momdel não contém nenhum tipo de validação.
     """
 
     pais = models.CharField(max_length=255, default="")
-    pais_sigla = models.CharField(max_length=3, default="")
+    #pais_sigla = models.CharField(max_length=3, default="")
 
     cidade = models.CharField(max_length=255, default="")
-    cidade_sigla = models.CharField(max_length=3, default="")
+    #cidade_sigla = models.CharField(max_length=3, default="")
 
     estado = models.CharField(max_length=255, default="")
-    estado_sigla = models.CharField(max_length=3, default="")
+    #estado_sigla = models.CharField(max_length=3, default="")
 
     def __str__(self):
         return "Endereço: {0}, {1} de {2}".format(self.pais, self.cidade, self.estado)
