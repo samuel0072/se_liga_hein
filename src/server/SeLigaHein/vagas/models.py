@@ -98,12 +98,12 @@ class Vaga(TimeStampedModel):
     
     disponivel = models.BooleanField(default = True)#vaga ainda está disponível no sistema
 
-    endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT, null=True, blank=True)#endereço que a vaga se refere
-    cargo = models.ForeignKey(Cargo, on_delete=models.PROTECT, null=True, blank=True)#cargo que a vaga se refere
+    endereco = models.ForeignKey(Endereco,on_delete=models.SET_NULL,null=True, blank=True)#endereço que a vaga se refere
+    cargo = models.ForeignKey(Cargo,on_delete=models.SET_NULL, null=True, blank=True)#cargo que a vaga se refere
     
     tecnologias = models.ManyToManyField(Tecnologia, blank = True)#tecnologias associadas a vaga
 
-    usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True, blank=True)#empres que criou a vaga
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True, blank=True)#empres que criou a vaga
 
     link = models.TextField(default="")# link para saber mais detalhes sobre a vaga
 

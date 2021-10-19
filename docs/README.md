@@ -132,22 +132,18 @@ GET - Paramêtros da requisição:
 
     GET - Paramêtros da requisição:
 
-        - endereco_id: Retorna o endereço especificado
-        - entidade_id: Retorna a entidade de endereço especificada
-        - entidade_nome: Retorna as entidades de endereço com nomes semelhantes ao informado
-        - entidade_sigla: Retorna as entidades de endereço com sigla igual a informada
+        - id: Retorna o endereço especificado
+        - nome: Retorna iendereço com nomes semelhantes ao informado
 
 > Metodos abaixo disponíveis somente para o adiministrador do sistema
 
     DELETE - Corpo da requisição:
 
-        - endereco_id: Excluí o endereço
-        - entidade_id: Excluí a entidade de endereço especificada
+        - id: Excluí o endereço
 
     POST - Corpo da requisição:
         
         - endereco: Cria um endereço e o retorna
-        - entidade: Cria uma entidade de endereço e a retorna
 
 # Organização do banco de dados
 ![Imagem do banco de dados. O banco foi modelado usando uma abordagem relacional](modelagem_db.png)

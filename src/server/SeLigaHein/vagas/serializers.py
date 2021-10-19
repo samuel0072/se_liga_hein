@@ -28,6 +28,6 @@ class TecnologiaSerializer(serializers.ModelSerializer):
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endereco
-        fields = ['id', 'pais', 'cidade', 'estado', 'pais_sigla', 'cidade_sigla', 'estado_sigla']
+        fields = ['id', 'pais', 'cidade', 'estado']
 
 
