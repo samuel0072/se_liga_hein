@@ -23,7 +23,7 @@ class CargoSerializer(serializers.ModelSerializer):
 class TecnologiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tecnologia
-        fields = ['id', 'nome', 'descricao']
+        fields = ['id', 'nome', 'descricao', 'tag']
 
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:

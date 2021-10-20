@@ -69,6 +69,7 @@ class Tecnologia(TimeStampedModel):
     a cargos e vagas
     """
     nome = models.CharField(max_length=255, default = "")#nome da tecnologia
+    tag = models.CharField(max_length=5, default = "")#tag para abreviar a atecnologia
     descricao = models.TextField()#descrição da tecnologia
 
     def __str__(self):

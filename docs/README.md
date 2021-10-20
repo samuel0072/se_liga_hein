@@ -124,7 +124,7 @@ GET - Paramêtros da requisição:
 
     PUT - Corpo da requisição:
         
-        - id: Atualiza as informações da tecnologia logado
+        - id: Atualiza as informações da tecnologia
 
 ## Endereço
 

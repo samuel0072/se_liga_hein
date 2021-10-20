@@ -22,6 +22,9 @@ urlpatterns = [
     path('endereco', endereco.criar_endereco, name = 'criar_endereco'),
     path('endereco/buscar', endereco.buscar_end, name = 'buscar_endereco'),
     path('endereco/excluir', endereco.excluir_end, name = 'excluir_endereco'),
+    path('tecnologia', tecnologia.criar_tecnologia, name = 'criar_tecnologia'),
+    path('tecnologia/buscar', tecnologia.buscar_tecnologia, name = 'buscar_tecnologia'),
+    path('tecnologia/mudar', tecnologia.mudar_tecnologia, name = 'mudar_tecnologia'),
 
     path('api/auth_token', rest_auth_views.obtain_auth_token, name="auth_token"),#rota pra obter um token de autenticação
     path('api/jwt_token', TokenObtainPairView.as_view(), name='jwt_token_obtain_pair'),#rota para obter um jwt para autenticação
